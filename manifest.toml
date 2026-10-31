@@ -1,0 +1,73 @@
+id = "bash-syntax"
+name = "Bash"
+version = "0.0.1"
+abi = "1.12"
+# A language and nothing else: no module of its own and no pane. The grammar is the file the
+# installer downloads and checks.
+
+[language]
+name = "Bash"
+grammar = "bash.wasm"
+extensions = ["sh", "bash", "zsh"]
+comment = "#"
+# The query is the grammar's own (queries/highlights.scm of https://github.com/tree-sitter/tree-sitter-bash, v0.25.1 (a06c2e4)).
+# The patterns are in the opposite order of the grammar's file: TerminalCode takes the first of two
+# patterns on the same text, and that file is written for the last (as Neovim and Zed take it).
+highlights = '''
+(
+  (command (_) @constant)
+  (#match? @constant "^-")
+)
+
+[
+  "$"
+  "&&"
+  ">"
+  ">>"
+  "<"
+  "|"
+] @operator
+
+[
+  (command_substitution)
+  (process_substitution)
+  (expansion)
+]@embedded
+
+(file_descriptor) @number
+
+(function_definition name: (word) @function)
+
+(comment) @comment
+
+[
+  "case"
+  "do"
+  "done"
+  "elif"
+  "else"
+  "esac"
+  "export"
+  "fi"
+  "for"
+  "function"
+  "if"
+  "in"
+  "select"
+  "then"
+  "unset"
+  "until"
+  "while"
+] @keyword
+
+(variable_name) @property
+
+(command_name) @function
+
+[
+  (string)
+  (raw_string)
+  (heredoc_body)
+  (heredoc_start)
+] @string
+'''
