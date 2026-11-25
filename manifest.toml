@@ -2,6 +2,7 @@ id = "bash-syntax"
 name = "Bash"
 version = "0.0.1"
 abi = "1.12"
+tags = ["syntax", "shell"]
 # A language and nothing else: no module of its own and no pane. The grammar is the file the
 # installer downloads and checks.
 
